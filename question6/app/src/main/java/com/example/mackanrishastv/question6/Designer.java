@@ -7,11 +7,7 @@ public class Designer extends Employee {
     protected int numberOfProject;
 
     public Designer(String name, int age, boolean sex, String address, double baseSalary, int numberOfProject) {
-        this.name = name;
-        this.age = age;
-        this.sex = sex;
-        this.address = address;
-        this.baseSalary = baseSalary;
+        super();
         this.numberOfProject = numberOfProject;
     }
 

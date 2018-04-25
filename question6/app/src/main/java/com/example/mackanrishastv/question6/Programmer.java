@@ -11,11 +11,7 @@ public class Programmer extends Employee {
     protected char rank;
 
     public Programmer(String name, int age, boolean sex, String address, double baseSalary, int numberOfProject, char rank){
-        this.name = name;
-        this.age = age;
-        this.sex = sex;
-        this.address = address;
-        this.baseSalary = baseSalary;
+        super();
         this.numberOfProject = numberOfProject;
         this.rank = rank;
     }
