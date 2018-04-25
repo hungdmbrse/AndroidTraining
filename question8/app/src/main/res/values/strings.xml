@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">question8</string>
+    <string name="android_begin">初めのAndroidアプリをスタートしました</string>
 </resources>

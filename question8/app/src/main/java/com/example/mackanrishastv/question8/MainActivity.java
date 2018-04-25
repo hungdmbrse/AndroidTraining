@@ -13,9 +13,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView txtView = (TextView) findViewById(R.id.textView);
-        txtView.setText("初めのAndroidアプリをスタートしました");
-
+        TextView textView = (TextView) findViewById(R.id.textView);
+        textView.setText(getString(R.string.android_begin));
 
     }
 }
