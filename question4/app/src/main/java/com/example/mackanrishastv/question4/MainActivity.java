@@ -16,12 +16,9 @@ public class MainActivity extends AppCompatActivity {
         Account acc2 = new Account("HoangHoa", 26, "Male", "English");
         Account acc3 = new Account("ThucTrinh", 24, "Female", "Franch");
 
-        ArrayList<Account> lstAcount = new ArrayList<Account>();
-        lstAcount.add(acc1);
-        lstAcount.add(acc2);
-        lstAcount.add(acc3);
+        acc1.showAccount();
+        acc2.showAccount();
+        acc3.showAccount();
 
-        Account obj = new Account();
-        obj.showAccount(lstAcount);
     }
 }

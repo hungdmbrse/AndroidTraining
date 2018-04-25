@@ -25,19 +25,13 @@ public class Account {
 
     }
 
-    public void showAccount(ArrayList<Account> lstAccount){
-        Account accTemp = null;
-        for(int i = 0; i < lstAccount.size(); i++){
-            accTemp = lstAccount.get(i);
-            if (accTemp.getSex().equals("Male")){
-                Log.d("ManhHung4", accTemp.name + "君は、" + accTemp.getLanguage() + "が得意な" +
-                        "な"+ String.valueOf(accTemp.getAge()) + "歳です");
-            } else {
-                Log.d("ManhHung4", accTemp.name + "さんは、"+ accTemp.getLanguage() + "が得意な" + "な"+ String.valueOf(accTemp.getAge()) + "歳です");
-            };
-        }
-
-        Log.d("ManhHung4", "Done");
+    public void showAccount(){
+        if(this.getSex().equals("Male")) {
+            Log.d("ManhHung", this.name + "君は、" + this.getLanguage() + "が得意な" +
+                    "な" + String.valueOf(this.getAge()) + "歳です");
+        }else {
+            Log.d("ManhHung4", this.name + "さんは、"+ this.getLanguage() + "が得意な" + "な"+ String.valueOf(this.getAge()) + "歳です");
+        };
     }
 
     public void setName(String name){
