@@ -1,49 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:background="@drawable/hoavang"
+<FrameLayout android:background="@drawable/hoavang"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
+    <LinearLayout
+        android:background="#F7F7F7"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
-        android:layout_width="283dp"
-        android:layout_height="373dp"
-        android:layout_centerInParent="true">
-
-        <android.support.v7.widget.GridLayout
+        <LinearLayout
+            android:padding="50dp"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="98dp"
-            app:columnCount="2"
-            app:orientation="horizontal"
-            app:rowCount="2"
-            tools:context=".GridXMLActivity">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"1
-                android:src="@drawable/fb"
-                app:layout_gravity="left" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/you" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/go" />
-
-            <ImageView
-                android:layout_width="51dp"
-                android:layout_height="55dp"
-                android:src="@drawable/inst" />
-
-
-        </android.support.v7.widget.GridLayout>
-    </FrameLayout>
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/fb"
+                        app:layout_gravity="left" />
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/go" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="51dp"
+                        android:layout_height="55dp"
+                        android:src="@drawable/inst" />
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/you" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="User name"
+                    android:textColor="#00E5EE"
+                    android:textSize="10dp"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="User name"
+                    android:textSize="10dp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Password"
+                    android:textColor="#00E5EE"
+                    android:textSize="10dp"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:textSize="10dp"
+                    />
+            </LinearLayout>
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Login"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
 
     <TextView
         android:textColor="#ffffff"
@@ -52,6 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="スマートテック・ベンチャーズ"/>
+        android:text="スマートテック・ベンチャーズ"
+        android:layout_gravity="bottom|center"/>
 
-</RelativeLayout>
+</FrameLayout>
