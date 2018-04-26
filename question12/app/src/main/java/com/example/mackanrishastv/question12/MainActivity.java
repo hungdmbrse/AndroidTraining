@@ -90,10 +90,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(webView.canGoBack()){
+        if(webView.canGoBack()) {
             webView.goBack();
-        } else{
-            finish();
         }
     }
 }
