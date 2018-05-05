@@ -1,25 +1,23 @@
 package com.example.mackanrishastv.question18;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
+public class SocialNetworkAdapter extends RecyclerView.Adapter<SocialNetworkAdapter.ViewHolder> {
 
-    ArrayList<DataRecly> dataRecl;
-    Context context;
+    private List<SocialNetwork> socialNetworkList;
+    private Context context;
 
-    public DataAdapter(ArrayList<DataRecly> dataRecl, Context context) {
-        this.dataRecl = dataRecl;
+    public SocialNetworkAdapter(List<SocialNetwork> socialNetworkList, Context context) {
+        this.socialNetworkList = socialNetworkList;
         this.context = context;
     }
 
@@ -33,23 +31,26 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textView.setText(dataRecl.get(position).getName());
-        holder.imageView.setImageResource(dataRecl.get(position).getImg());
+        holder.txtNameSocial.setText(socialNetworkList.get(position).getNameSocial());
+        holder.imgSocial.setImageResource(socialNetworkList.get(position).getImgSocial());
     }
 
     @Override
     public int getItemCount() {
-        return dataRecl.size();
+        return socialNetworkList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
-        ImageView imageView;
+
+    public class ViewHolder extends RecyclerView.ViewHolder{
+
+        TextView txtNameSocial;
+        ImageView imgSocial;
+
         public ViewHolder(View itemView) {
             super(itemView);
 
-            textView = (TextView) itemView.findViewById(R.id.txtName);
-            imageView = (ImageView) itemView.findViewById(R.id.imgHinh);
+            txtNameSocial = (TextView) itemView.findViewById(R.id.txtNameSocial);
+            imgSocial = (ImageView) itemView.findViewById(R.id.imgSocial);
         }
     }
 }
