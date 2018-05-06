@@ -4,34 +4,33 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
 
-public class MainActivity extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
+import java.util.ArrayList;
+import java.util.List;
 
-    MyRecyclerViewAdapter adapter;
+public class MainActivity extends AppCompatActivity {
+
+    List<SocialNetwork> socialNetworkList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // data to populate the RecyclerView with
-//        String[] data = {"1", "2", "3", "4", "5", "6", "7", "8"};
-        int[] lstImg = {R.drawable.fb, R.drawable.go, R.drawable.inst, R.drawable.wo, R.drawable.twiter, R.drawable.you};
+        socialNetworkList = new ArrayList<>();
+        socialNetworkList.add(new SocialNetwork("Facebook", R.drawable.fb));
+        socialNetworkList.add(new SocialNetwork("Google", R.drawable.go));
+        socialNetworkList.add(new SocialNetwork("Instagram", R.drawable.inst));
+        socialNetworkList.add(new SocialNetwork("Email", R.drawable.mail));
+        socialNetworkList.add(new SocialNetwork("Twitter", R.drawable.twiter));
+        socialNetworkList.add(new SocialNetwork("Word Press", R.drawable.wo));
+        socialNetworkList.add(new SocialNetwork("Twitter", R.drawable.twiter));
+        socialNetworkList.add(new SocialNetwork("Word Press", R.drawable.wo));
 
-        // set up the RecyclerView
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvNumbers);
-        int numberOfColumns = 2;
-        recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
-        adapter = new MyRecyclerViewAdapter(this, lstImg);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
-    }
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this, socialNetworkList);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setAdapter(recyclerViewAdapter);
 
-    @Override
-    public void onItemClick(View view, int position) {
-        Log.i("TAG", "You clicked number " + adapter.getItem(position) + ", which is at cell position " + position);
     }
 }
-
