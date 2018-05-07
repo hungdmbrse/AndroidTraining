@@ -8,6 +8,8 @@ import android.support.v4.view.PagerAdapter;
 
 public class PageAdapter extends FragmentStatePagerAdapter {
 
+    private static int NUM_ITEMS = 3;
+
 
     public PageAdapter(FragmentManager fm) {
         super(fm);
@@ -16,42 +18,28 @@ public class PageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment frag = null;
         switch (position){
             case 0:
-                frag = new fragment1();
-                break;
+                return fragment1.newInstance("F1", 1);
             case 1:
-                frag = new fragment2();
-                break;
+                return fragment1.newInstance("F2", 2);
             case 2:
-                frag = new fragment3();
-                break;
+                return fragment1.newInstance("F3", 3);
+            default:
+                return null;
 
         }
-        return frag;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return NUM_ITEMS;
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        String title = "";
-        switch (position){
-            case 0:
-                title = "Page 1";
-                break;
-            case 1:
-                title = "Page 2";
-                break;
-            case 2:
-                title = "Page 3";
-                break;
-        }
-        return title;
+
+        return "Page :" + position;
     }
 }
