@@ -10,11 +10,25 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class SecondScreenActivity extends Activity {
+    TextView textView2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_screen);
+
+        textView2 = (TextView) findViewById(R.id.acc2_textViewBack);
+
+        textView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getApplicationContext(), FirstScreenActivity.class);
+
+                startActivity(i);
+            }
+        });
+
 
     }
 }
