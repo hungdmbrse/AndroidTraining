@@ -3,11 +3,6 @@ package com.example.mackanrishastv.question31.model;
 
 import java.util.List;
 
-import com.example.mackanrishastv.question31.model.Copyright;
-import com.example.mackanrishastv.question31.model.Description;
-import com.example.mackanrishastv.question31.model.Forecast;
-import com.example.mackanrishastv.question31.model.Location;
-import com.example.mackanrishastv.question31.model.PinpointLocation;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

@@ -15,5 +15,5 @@ import retrofit2.http.Query;
 
 public interface WeatherAPI {
     @GET("v1")
-    Call<List<Forecast>> findCityData(@Query("city") int idCity);
+    Call<PostList> findCityData(@Query("city") int idCity);
 }
