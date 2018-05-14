@@ -7,7 +7,7 @@ public class Designer extends Employee {
     protected int numberOfProject;
 
     public Designer(String name, int age, boolean sex, String address, double baseSalary, int numberOfProject) {
-        super();
+        super(name, age, sex, address, baseSalary);
         this.numberOfProject = numberOfProject;
     }
 

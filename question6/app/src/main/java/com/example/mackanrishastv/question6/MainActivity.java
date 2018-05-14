@@ -2,6 +2,7 @@ package com.example.mackanrishastv.question6;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,5 +20,6 @@ public class MainActivity extends AppCompatActivity {
         proG2.computeYearlyPay();
         deS1.computeYearlyPay();
         deS2.computeYearlyPay();
+
     }
 }
