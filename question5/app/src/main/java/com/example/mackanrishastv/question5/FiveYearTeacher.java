@@ -2,7 +2,7 @@ package com.example.mackanrishastv.question5;
 
 public class FiveYearTeacher extends Teacher {
     public FiveYearTeacher(String name, int age, boolean sex, double salary){
-        super();
+        super(name, age, sex, salary);
     }
 
     public double calculateSalary(){
