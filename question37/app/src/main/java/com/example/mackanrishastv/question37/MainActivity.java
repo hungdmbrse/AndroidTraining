@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText mEditTextTo, mEditTextSubject, mEditTextMessage;
@@ -33,23 +36,35 @@ public class MainActivity extends AppCompatActivity {
 
     private void sendMail() {
 
+
         String recipientList = mEditTextTo.getText().toString();
         String[] recipients = recipientList.split(",");
 
         String subject = mEditTextSubject.getText().toString();
         String message = mEditTextMessage.getText().toString();
 
-        if(recipientList.equals("") || subject.equals("") || message.equals("")){
-            Toast.makeText(this, "Please fill all the information !!", Toast.LENGTH_SHORT).show();
+        if(isEmailValid(recipientList)) {
+            if (recipientList.equals("") || subject.equals("") || message.equals("")) {
+                Toast.makeText(this, "Please fill all the information !!", Toast.LENGTH_SHORT).show();
 
+            } else {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_EMAIL, recipients);
+                intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                intent.putExtra(Intent.EXTRA_TEXT, message);
+
+                intent.setType("message/rfc822");
+                startActivity(Intent.createChooser(intent, "Choose an email client"));
+            }
         } else {
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.putExtra(Intent.EXTRA_EMAIL, recipients);
-            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-            intent.putExtra(Intent.EXTRA_TEXT, message);
-
-            intent.setType("message/rfc822");
-            startActivity(Intent.createChooser(intent, "Choose an email client"));
+            Toast.makeText(this, "Email should be in form, Please", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public static boolean isEmailValid(String email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 }
