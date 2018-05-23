@@ -1,5 +1,7 @@
 package com.example.mackanrishastv.question12;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -16,45 +19,45 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     private EditText addressBar;
     private WebView webView;
-    private Button btn_back;
-    private Button btn_forward;
-    private Button btn_reload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn_back = (Button) findViewById(R.id.buttonBack);
-        btn_forward = (Button) findViewById(R.id.buttonForward);
-        btn_reload = (Button) findViewById(R.id.buttonReload);
+        if (!DetectConnection.checkInternetConnection(this)) {
+            Toast.makeText(getApplicationContext(), "No Internet!", Toast.LENGTH_SHORT).show();
+        } else {
+            webView = (WebView) findViewById(R.id.myWebView);
+            CustomWebViewClient c = new CustomWebViewClient();
+            webView.setWebViewClient(c);
+            CreateWebView();
+        }
 
-        webView = (WebView) findViewById(R.id.myWebView);
-        webView.loadUrl("https://www.google.com");
+
+        // Function to load all URLs in same webview
+
+
+    }
+
+    public void CreateWebView(){
+        webView.clearCache(true);
+        webView.clearHistory();
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient());
-        webView.setWebChromeClient(new WebChromeClient());
+        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        webView.getSettings().setBuiltInZoomControls(true);
+        webView.loadUrl("http://www.google.com");
+    }
 
-        btn_back.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
+    private class CustomWebViewClient extends WebViewClient {
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if (!DetectConnection.checkInternetConnection(MainActivity.this)) {
+                Toast.makeText(getApplicationContext(), "No Internet!", Toast.LENGTH_SHORT).show();
+            } else {
+                view.loadUrl(url);
             }
-        });
-
-        btn_forward.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onForwardPressed();
-            }
-        });
-
-        btn_reload.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                webView.reload();
-            }
-        });
+            return true;
+        }
     }
 
     @Override
@@ -74,7 +77,18 @@ public class MainActivity extends AppCompatActivity {
                 onForwardPressed();
                 break;
             case R.id.menu_refresh:
-                webView.reload();
+                if (!DetectConnection.checkInternetConnection(MainActivity.this)) {
+                    Toast.makeText(getApplicationContext(), "No Internet!", Toast.LENGTH_SHORT).show();
+                } else {
+                    if(webView != null){
+                        webView.reload();
+                    }
+                    else {
+                        CreateWebView();
+                    }
+
+                }
+
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -94,4 +108,5 @@ public class MainActivity extends AppCompatActivity {
             webView.goBack();
         }
     }
+
 }
