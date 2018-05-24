@@ -9,8 +9,8 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class MainActivity extends Activity {
 
-    ImageView imageView;
-    SeekBar redBar, greenBar, blueBar;
+    private ImageView imageView;
+    private SeekBar redBar, greenBar, blueBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
