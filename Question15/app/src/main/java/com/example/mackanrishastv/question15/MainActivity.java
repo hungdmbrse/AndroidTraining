@@ -27,24 +27,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    public void ShowAlerdialog(){
-//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-//        alertDialog.setTitle("Question 15");
-//        alertDialog.setIcon(R.mipmap.ic_launcher);
-//        alertDialog.setMessage("You're in question 15");
-//        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Log.d("Q15Info", "You've clicked OK button");
-//            }
-//        });
-//
-//        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Log.d("Q15Info", "You've clicked Cancel button");
-//            }
-//        });
-//        alertDialog.show();
-//    }
 }
