@@ -10,9 +10,9 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnShow;
-    TextView txtViewAcc, txtViewId, txtViewBalance;
-    SharedPreferences mPrefs;
+    private Button btnShow;
+    private TextView txtViewAcc, txtViewId, txtViewBalance;
+    private SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
