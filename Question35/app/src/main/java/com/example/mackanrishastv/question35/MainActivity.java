@@ -31,13 +31,13 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-    ProfilePictureView profilePictureView;
-    LoginButton loginButton;
-    Button btnLogout, btnFuntions;
-    CallbackManager callbackManager;
+    private ProfilePictureView profilePictureView;
+    private LoginButton loginButton;
+    private Button btnLogout, btnFuntions;
+    private CallbackManager callbackManager;
 
-    ShareDialog shareDialog;
-    ShareLinkContent shareLinkContent;
+    private ShareDialog shareDialog;
+    private ShareLinkContent shareLinkContent;
 
 
     @Override
