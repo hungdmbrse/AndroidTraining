@@ -22,10 +22,7 @@ public class SecondScreenActivity extends Activity {
         textView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent i = new Intent(getApplicationContext(), FirstScreenActivity.class);
-
-                startActivity(i);
+                finish();
             }
         });
 
