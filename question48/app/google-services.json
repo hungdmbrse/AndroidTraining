@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "7520148389",
+    "firebase_url": "https://question48-50ff7.firebaseio.com",
+    "project_id": "question48-50ff7",
+    "storage_bucket": "question48-50ff7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:7520148389:android:1665c63d9e468660",
+        "android_client_info": {
+          "package_name": "com.example.mackanrishastv.question48"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "7520148389-9qs42l6cc6rv2ds2h3bnvkvocluvogml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4ytHLNlLLI7qMN88gQkqb9rBzW6M40Vg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
