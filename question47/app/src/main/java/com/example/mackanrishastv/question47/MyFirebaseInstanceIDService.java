@@ -19,6 +19,6 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     }
 
     private void sendRegistrationToServer(String tokan){
-
+        Log.d("Tokan", tokan);
     }
 }
