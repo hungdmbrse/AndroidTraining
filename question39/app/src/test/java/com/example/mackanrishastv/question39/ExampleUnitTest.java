@@ -1,4 +1,4 @@
-package com.example.mackanrishastv.question399;
+package com.example.mackanrishastv.question39;
 
 import org.junit.Test;
 

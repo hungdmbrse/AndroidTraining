@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">question399</string>
+    <string name="app_name">Question39</string>
+    <string name="cameraimage">cameraImage</string>
+    <string name="openCamera">Start Camera</string>
+    <string name="flush">Capture</string>
 </resources>
