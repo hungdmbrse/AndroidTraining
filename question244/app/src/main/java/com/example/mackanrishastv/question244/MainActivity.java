@@ -1,10 +1,15 @@
 package com.example.mackanrishastv.question244;
 
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +30,7 @@ import java.net.URLConnection;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int MY_CAMERA_REQUEST_CODE = 2001;
     Button button;
     ImageView imageView;
 
@@ -34,9 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i("Info", "Button pressed");
 
-        DownloadTask downloadTask = new DownloadTask();
-        downloadTask.execute(image_url);
+        checkPermission();
+
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +149,46 @@ public class MainActivity extends AppCompatActivity {
             imageView.setImageDrawable(Drawable.createFromPath(path));
             Log.i("Info", "Path: " + path);
         }
+
+
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        boolean readStoragePermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+        boolean writeStoragePermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+
+        if (requestCode == MY_CAMERA_REQUEST_CODE) {
+            //if(grantResults[1] == PackageManager.PERMISSION_GRANTED){
+            if (readStoragePermission && writeStoragePermission) {
+                //Toast.makeText(getApplicationContext(), "Permission oke ", Toast.LENGTH_LONG).show();
+                SaveImg();
+            } else {
+                //許可なしで次の画面に移動されません。もう1回確認してお願い致します
+                Toast.makeText(getApplicationContext(), "Unable to continue without permissions. ", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    public void checkPermission() {
+        if (ContextCompat
+                .checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                + ContextCompat
+                .checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{ Manifest.permission
+                            .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    MY_CAMERA_REQUEST_CODE);
+        } else {
+
+            SaveImg();
+        }
+    }
+
+    private void SaveImg() {
+        DownloadTask downloadTask = new DownloadTask();
+        downloadTask.execute(image_url);
+    }
 }
