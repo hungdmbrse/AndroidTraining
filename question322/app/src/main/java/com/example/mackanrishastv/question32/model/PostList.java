@@ -1,16 +1,14 @@
 
 package com.example.mackanrishastv.question32.model;
 
+import android.location.Location;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class PostList {
-
-    @SerializedName("pinpointLocations")
-    @Expose
-    private List<PinpointLocation> pinpointLocations = null;
     @SerializedName("link")
     @Expose
     private String link;
@@ -23,23 +21,12 @@ public class PostList {
     @SerializedName("publicTime")
     @Expose
     private String publicTime;
-    @SerializedName("copyright")
-    @Expose
-    private Copyright copyright;
     @SerializedName("title")
     @Expose
     private String title;
     @SerializedName("description")
     @Expose
     private Description description;
-
-    public List<PinpointLocation> getPinpointLocations() {
-        return pinpointLocations;
-    }
-
-    public void setPinpointLocations(List<PinpointLocation> pinpointLocations) {
-        this.pinpointLocations = pinpointLocations;
-    }
 
     public String getLink() {
         return link;
@@ -71,14 +58,6 @@ public class PostList {
 
     public void setPublicTime(String publicTime) {
         this.publicTime = publicTime;
-    }
-
-    public Copyright getCopyright() {
-        return copyright;
-    }
-
-    public void setCopyright(Copyright copyright) {
-        this.copyright = copyright;
     }
 
     public String getTitle() {
