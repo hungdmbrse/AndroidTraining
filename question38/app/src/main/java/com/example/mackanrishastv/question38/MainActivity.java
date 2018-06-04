@@ -1,59 +1,143 @@
 package com.example.mackanrishastv.question38;
 
-import android.app.Activity;
+import android.Manifest;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int RESULT_CAMERA = 1001;
+    private static final int PERMISSION_CODE = 1280;
+    private ImageView imageView;
 
+    private Uri cameraUri;
 
-    static final int REQUEST_CAPTURE_IMAGE = 100;
-
-    Button button1;
-    ImageView imageView1;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViews();
-        setListeners();
-    }
 
-    protected void findViews(){
-        button1 = (Button)findViewById(R.id.button1);
-        imageView1 = (ImageView)findViewById(R.id.imageView1);
-    }
+        imageView = (ImageView) findViewById(R.id.captured_photo);
+        Button button = (Button) findViewById(R.id.photo_button);
 
-    protected void setListeners(){
-        button1.setOnClickListener(new View.OnClickListener(){
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(
-                        MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(
-                        intent,
-                        REQUEST_CAPTURE_IMAGE);
+            public void onClick(View view) {
+                checkPermission();
             }
         });
     }
 
+    private void openCamera() {
+        String filename = System.currentTimeMillis() + ".jpg";
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, filename);
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        cameraUri = getContentResolver().insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
+        startActivityForResult(intent, RESULT_CAMERA);
+    }
+
     @Override
-    protected void onActivityResult(
-            int requestCode,
-            int resultCode,
-            Intent data) {
-        if(REQUEST_CAPTURE_IMAGE == requestCode
-                && resultCode == Activity.RESULT_OK ){
-            Bitmap capturedImage =
-                    (Bitmap) data.getExtras().get("data");
-            imageView1.setImageBitmap(capturedImage);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RESULT_CAMERA) {
+            try {
+                Bitmap image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), cameraUri);
+                int width = image.getWidth();
+                int height = image.getHeight();
+
+                Bitmap bitmap = Bitmap.createBitmap(image, 0, 0, width, height, null, false);
+
+                imageView.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                Log.e("System.err", e.getMessage());
+            }
         }
     }
+
+    public void checkPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            openCamera();
+        }
+        else {
+            requestPermission();
+        }
+    }
+
+    private void requestPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        PERMISSION_CODE);
+            }
+
+        } else {
+            Toast.makeText(this, "Don't have permisson to action", Toast.LENGTH_SHORT).show();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        PERMISSION_CODE);
+            }
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_CODE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openCamera();
+                } else {
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions,
+                        grantResults);
+        }
+    }
+
+    private String getFilePath(Uri uri) {
+        String[] projection = {MediaStore.MediaColumns.DATA};
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        if (cursor != null) {
+            String path = null;
+            if (cursor.moveToFirst()) {
+                path = cursor.getString(0);
+            }
+            cursor.close();
+            if (path != null) {
+                return path;
+            }
+        }
+        return null;
+    }
+
 }
