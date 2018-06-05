@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -43,6 +45,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         databaseAccess.open();
 
         arrayListTodo = new ArrayList<>();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (!prefs.getBoolean("firstTime", false)) {
+            // <---- run your one time code here
+
+            databaseAccess.addTodoNew(1,"Meeting Up", "Pm 2:00h", "2018/05/06", "", "2018/05/07");
+            databaseAccess.addTodoNew(2,"Meeting Up", "Pm 2:00h", "2018/05/06", "", "2018/05/07");
+            databaseAccess.addTodoNew(3,"Meeting Up", "Pm 2:00h", "2018/05/06", "", "2018/05/07");
+
+            // mark first time has runned.
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("firstTime", true);
+            editor.commit();
+        }
+
         arrayListTodo = databaseAccess.getListTodo();
 
         listViewTodo = (ListView) findViewById(R.id.listView_activity_todolist);

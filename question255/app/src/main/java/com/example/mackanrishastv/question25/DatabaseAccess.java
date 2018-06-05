@@ -69,6 +69,15 @@ public class DatabaseAccess {
         db.execSQL(sql);
     }
 
+    public void addTodoNew(int id, String title, String contents, String created, String modified, String limit_date){
+
+        String sql = "INSERT INTO tr_todo VALUES(" + id + ",'" + title +
+                "', '" + contents + "', '" + created +
+                "', ' " + modified + "', '" + limit_date + "')";
+
+        db.execSQL(sql);
+    }
+
     public Todo getTodo(int todo_id){
 
         Todo todoTemp = new Todo();
