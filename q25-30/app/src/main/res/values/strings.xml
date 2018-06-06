@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Question25+</string>
+    <string name="plus">+</string>
+    <string name="titleHint">Please enter title</string>
+    <string name="titleLabel">Title :</string>
+    <string name="contentLabel">Content</string>
+    <string name="contentHint">Enter Content...</string>
+    <string name="registerButtonText">Add</string>
+
+</resources>
