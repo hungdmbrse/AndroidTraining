@@ -69,5 +69,47 @@ public class DatabaseAccess {
         db.execSQL(sql);
     }
 
+    public void addTodoNew(int id, String title, String contents, String created, String modified, String limit_date){
+
+        String sql = "INSERT INTO tr_todo VALUES(" + id + ",'" + title +
+                "', '" + contents + "', '" + created +
+                "', ' " + modified + "', '" + limit_date + "')";
+
+        db.execSQL(sql);
+    }
+
+    public Todo getTodo(int todo_id){
+
+        Todo todoTemp = new Todo();
+        String sql = "SELECT * FROM tr_todo WHERE todo_id = '" + todo_id + "'";
+        c = db.rawQuery(sql, new String[]{});
+
+        while (c.moveToNext()){
+            todoTemp.setTodo_id(c.getInt(0));
+            todoTemp.setTodo_title(c.getString(1));
+            todoTemp.setTodo_contents(c.getString(2));
+            todoTemp.setCreated(c.getString(3));
+            todoTemp.setModified(c.getString(4));
+            todoTemp.setLimit_date(c.getString(5));
+        }
+
+        return todoTemp;
+    }
+
+    public void updateTodo(int todo_id, String title, String content, String update_date){
+
+        String sql = "UPDATE tr_todo SET todo_title = '" + title + "', todo_contents = '"
+                + content + "', modified = '" + update_date + "' WHERE todo_id = '" +
+                todo_id + "'";
+        db.execSQL(sql);
+
+    }
+
+    public Integer deleteTodo(String todo_id){
+        return db.delete("tr_todo", "todo_id = ?", new String[]{todo_id});
+    }
+
+
+
 
 }

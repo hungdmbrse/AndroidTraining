@@ -2,6 +2,7 @@ package com.example.mackanrishastv.question25.view.add;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,31 +19,41 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.mackanrishastv.question25.ApplicationContextProvider;
 import com.example.mackanrishastv.question25.DatabaseAccess;
 import com.example.mackanrishastv.question25.MainActivity;
 import com.example.mackanrishastv.question25.R;
+import com.example.mackanrishastv.question25.Todo;
 import com.example.mackanrishastv.question25.presenter.add.PresenterAdd;
 import com.example.mackanrishastv.question25.presenter.add.PresenterResponseToViewAddListener;
+import com.example.mackanrishastv.question25.presenter.add.update.PresenterResponseToViewUpdateListener;
+import com.example.mackanrishastv.question25.presenter.add.update.PresenterUpdate;
 
 import java.util.Calendar;
 
 
-public class DialogHandleTodo extends DialogFragment implements View.OnClickListener, PresenterResponseToViewAddListener {
+public class DialogHandleTodo extends DialogFragment implements View.OnClickListener, PresenterResponseToViewAddListener, PresenterResponseToViewUpdateListener {
 
     private PresenterAdd presenterAdd;
+    private PresenterUpdate presenterUpdate;
+    public ViewResponseToActivityAddListener viewResponseToActivityAddListener;
 
     private static String action;
     private EditText edtTextAddTitle, edtTextAddContents;
     private TextView txtViewAddLimitDate;
     private Button btnAddTodo, btnAddCancel;
 
+    private DatabaseAccess databaseAccess;
+    private ApplicationContextProvider applicationContextProvider;
+
 
 
     final String[] addLimitDate = new String[1];
 
-    public DialogHandleTodo() {
-
+    public DialogHandleTodo(){
     }
+
+
 
     public static DialogHandleTodo newInstance(String title) {
 
@@ -73,11 +84,35 @@ public class DialogHandleTodo extends DialogFragment implements View.OnClickList
         btnAddTodo = (Button) view.findViewById(R.id.btnAddTodo);
         btnAddCancel = (Button) view.findViewById(R.id.btnAddCancel);
 
+        databaseAccess = DatabaseAccess.getInstance(applicationContextProvider.getsContext());
+
+        if(action.equals("add")){
+
+        } else if (action.equals("update")){
+            btnAddTodo.setText("Update");
+            txtViewAddLimitDate.setText("Update date");
+
+            Bundle bundle = getArguments();
+            int todo_id = bundle.getInt("todo_id");
+
+            Todo todoTemp = databaseAccess.getTodo(todo_id);
+
+            String updateTitle = todoTemp.getTodo_title();
+            String updateContent = todoTemp.getTodo_contents();
+            String updateModified = todoTemp.getModified();
+            String updateLimitDate = todoTemp.getLimit_date();
+
+            edtTextAddTitle.setText(updateTitle);
+            edtTextAddContents.setText(updateContent);
+            txtViewAddLimitDate.setText(updateLimitDate);
+        }
+
         btnAddTodo.setOnClickListener(this);
         btnAddCancel.setOnClickListener(this);
         txtViewAddLimitDate.setOnClickListener(this);
 
         presenterAdd = new PresenterAdd(this);
+        presenterUpdate = new PresenterUpdate(this);
 
         String title = getArguments().getString("title", "Enter name");
         getDialog().setTitle(title);
@@ -95,6 +130,16 @@ public class DialogHandleTodo extends DialogFragment implements View.OnClickList
                     String addDeadline = addLimitDate[0];
 
                     presenterAdd.receivedHandleAdd(addTitle, addContent, addDeadline);
+
+                } else if (action.equals("update")){
+                    Bundle bundle = getArguments();
+                    int todo_id = bundle.getInt("todo_id");
+
+                    String updateTitle = edtTextAddTitle.getText().toString();
+                    String updateContent = edtTextAddContents.getText().toString();
+                    String updateLimitDate = txtViewAddLimitDate.getText().toString();
+
+                    presenterUpdate.receiveHandleUpdate(todo_id, updateTitle, updateContent, updateLimitDate);
 
                 }
                 break;
@@ -126,12 +171,47 @@ public class DialogHandleTodo extends DialogFragment implements View.OnClickList
 
     @Override
     public void onAddSuccess() {
-        Toast.makeText(getActivity(), "Added Successfully, Reopen to refesh Todo", Toast.LENGTH_SHORT).show();
+        mCallback.addSuccess();
         dismiss();
     }
 
     @Override
     public void onAddFail() {
 
+    }
+
+
+
+    @Override
+    public void onUpdateSuccess() {
+        mCallback.updateSuccess();
+        dismiss();
+    }
+
+    @Override
+    public void onUpdateFail() {
+
+    }
+
+    OnHeadlineSelectedListener mCallback;
+
+    // Container Activity must implement this interface
+    public interface OnHeadlineSelectedListener {
+        public void addSuccess();
+        public void updateSuccess();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (OnHeadlineSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
     }
 }
