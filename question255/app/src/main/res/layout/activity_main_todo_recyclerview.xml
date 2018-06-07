@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -11,19 +10,20 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txtViewTodoTitle"
-            android:textColor="#ff00"
+            android:id="@+id/txtViewTodoTitleR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Title"
-            android:textStyle="bold"
+            android:textColor="#ff00"
             android:textSize="35dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:textStyle="bold" />
+
         <TextView
-            android:id="@+id/txtViewTotoContent"
-            android:textSize="25dp"
-            android:text="Content"
+            android:id="@+id/txtViewTotoContentR"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Content"
+            android:textSize="25dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -35,69 +35,64 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="5">
+            android:layout_weight="5"
+            android:orientation="horizontal">
+
             <TextView
-                android:text="Created :"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Created :" />
+
             <TextView
-                android:id="@+id/txtViewTodoCreated"
-                android:text="Created"
+                android:id="@+id/txtViewTodoCreatedR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:text="Created" />
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="5">
+            android:layout_weight="5"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:text="Limit Date :"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="Limit Date :" />
+
                 <TextView
+                    android:id="@+id/txtViewTodoLimitDateR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
-                    android:text="Limit Date"
-                    android:id="@+id/txtViewTodoLimitDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:text="Limit Date" />
             </LinearLayout>
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
                 <TextView
-                    android:text="Modified :"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="Modified :" />
+
                 <TextView
+                    android:id="@+id/txtViewTodoModifiedR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="11dp"
-                    android:id="@+id/txtViewTodoModified"
-                    android:text="Modified"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
+                    android:text="Modified" />
             </LinearLayout>
-
-
         </LinearLayout>
-
-
-
     </LinearLayout>
-
-
-
-
-
 </LinearLayout>

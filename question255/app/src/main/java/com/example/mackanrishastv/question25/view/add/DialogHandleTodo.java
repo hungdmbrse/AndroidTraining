@@ -2,6 +2,7 @@ package com.example.mackanrishastv.question25.view.add;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ public class DialogHandleTodo extends DialogFragment implements View.OnClickList
 
     private PresenterAdd presenterAdd;
     private PresenterUpdate presenterUpdate;
+    public ViewResponseToActivityAddListener viewResponseToActivityAddListener;
 
     private static String action;
     private EditText edtTextAddTitle, edtTextAddContents;
@@ -48,9 +50,10 @@ public class DialogHandleTodo extends DialogFragment implements View.OnClickList
 
     final String[] addLimitDate = new String[1];
 
-    public DialogHandleTodo() {
-
+    public DialogHandleTodo(){
     }
+
+
 
     public static DialogHandleTodo newInstance(String title) {
 
@@ -168,7 +171,7 @@ public class DialogHandleTodo extends DialogFragment implements View.OnClickList
 
     @Override
     public void onAddSuccess() {
-        Toast.makeText(getActivity(), "Added Successfully, Reopen to refesh Todo", Toast.LENGTH_SHORT).show();
+        mCallback.addSuccess();
         dismiss();
     }
 
@@ -177,14 +180,38 @@ public class DialogHandleTodo extends DialogFragment implements View.OnClickList
 
     }
 
+
+
     @Override
     public void onUpdateSuccess() {
-        Toast.makeText(getActivity(), "Updated Successfully, Reopen to refesh Todo", Toast.LENGTH_SHORT).show();
+        mCallback.updateSuccess();
         dismiss();
     }
 
     @Override
     public void onUpdateFail() {
 
+    }
+
+    OnHeadlineSelectedListener mCallback;
+
+    // Container Activity must implement this interface
+    public interface OnHeadlineSelectedListener {
+        public void addSuccess();
+        public void updateSuccess();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (OnHeadlineSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
     }
 }

@@ -1,8 +1,17 @@
 package com.example.mackanrishastv.question25;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,12 +27,14 @@ import com.example.mackanrishastv.question25.view.add.delete.ViewDelete;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, DialogHandleTodo.OnHeadlineSelectedListener, ViewDelete.deleteCallBack {
 
     private ListView listViewTodo;
     private TodoListAdapter todoListAdapter;
+
     private ArrayList<Todo> arrayListTodo;
     private DatabaseAccess databaseAccess;
+    private DialogHandleTodo dialogHandleTodo;
 
 
     @Override
@@ -35,15 +46,29 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         databaseAccess.open();
 
         arrayListTodo = new ArrayList<>();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (!prefs.getBoolean("firstTime", false)) {
+            // <---- run your one time code here
+
+            databaseAccess.addTodoNew(1,"Meeting Up", "Pm 7:00", "2018/05/06", "", "2018/05/07");
+            databaseAccess.addTodoNew(2,"Gym", "Pm 7:00", "2018/05/08", "", "2018/05/09");
+            databaseAccess.addTodoNew(3,"Cooking", "Am 6:00h", "2018/05/10", "", "2018/05/11");
+
+            // mark first time has runned.
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("firstTime", true);
+            editor.commit();
+        }
+
         arrayListTodo = databaseAccess.getListTodo();
 
         listViewTodo = (ListView) findViewById(R.id.listView_activity_todolist);
         todoListAdapter = new TodoListAdapter(this, R.layout.activity_main_todo_listview, arrayListTodo);
         listViewTodo.setAdapter(todoListAdapter);
 
+
         listViewTodo.setOnItemClickListener(this);
         listViewTodo.setOnItemLongClickListener(this);
-
 
 
     }
@@ -102,6 +127,38 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             dialogHandleTodo.show(fm, "dialog_handle_todo");
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void addSuccess() {
+        updateListTodo();
+        Toast.makeText(this, "Added Successfully", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void updateSuccess() {
+        updateListTodo();
+        Toast.makeText(this, "Update Success", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void deleteSuccess() {
+        updateListTodo();
+        Toast.makeText(this, "Delete Success", Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void updateListTodo(){
+        databaseAccess.open();
+        arrayListTodo = databaseAccess.getListTodo();
+        todoListAdapter.updateReceiptsList(arrayListTodo);
+        todoListAdapter.notifyDataSetChanged();
+        listViewTodo.setAdapter(todoListAdapter);
     }
 
 
