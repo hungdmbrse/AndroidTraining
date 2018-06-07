@@ -2,8 +2,10 @@ package com.example.mackanrishastv.question25.model.add;
 
 import com.example.mackanrishastv.question25.ApplicationContextProvider;
 import com.example.mackanrishastv.question25.DatabaseAccess;
+import com.example.mackanrishastv.question25.Todo;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ModelAdd {
@@ -14,7 +16,6 @@ public class ModelAdd {
 
     public ModelAdd(ModelResponseToPresenterAddListener modelResponseToPresenterListener){
         this.modelResponseToPresenterListener = modelResponseToPresenterListener;
-
     }
 
     public void handelAdd(String title, String contents, String limit_date){

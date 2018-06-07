@@ -20,6 +20,11 @@ public class TodoListAdapter extends BaseAdapter {
         this.arrayListTodo = arrayListTodo;
     }
 
+    public void updateReceiptsList(List<Todo> newlist) {
+        this.arrayListTodo = newlist;
+        this.notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return arrayListTodo.size();
