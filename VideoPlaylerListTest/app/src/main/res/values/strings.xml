@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">VideoPlaylerListTest</string>
+    <string name="video_name">Video name</string>
+    <string name="video1">when_she_says_her_parents_arent_home</string>
+    <string name="video2">wait_for_it</string>
+    <string name="video3">trailer_footage_vs_actual_gameplay</string>
+    <string name="video4">this_is_the_first_time_i_laughed_at_a_bull_fighting</string>
+    <string name="video5">so_close</string>
+    <string name="video6">she_did_it_im_the_good_boy_so_lets_play</string>
+    <string name="video7">owner_dresses_up_as_dogs_favourite_toy</string>
+    <string name="video8">master_of_comedy</string>
+    <string name="video9">mans_best_friend</string>
+    <string name="video10">hugh_jackman_runs_into_a_former_student</string>
+    <string name="video11">he_came_to_work_without_his_laptop_but_he_will_not_let_anything_stand_between_him_and_productivity</string>
+    <string name="video12">five_more_minutes_please</string>
+</resources>
